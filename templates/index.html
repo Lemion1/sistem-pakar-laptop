@@ -10,64 +10,79 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container-nav">
-            <div class="logo">
-                <span class="icon">💻</span>
-                <span class="text">LaptopFinder</span>
+            <div class="brand">
+                <span class="logo-icon">💻</span>
+                <div>
+                    <div class="brand-title">LaptopFinder</div>
+                    <div class="brand-subtitle">Sistem Pakar Rekomendasi Laptop</div>
+                </div>
             </div>
-            <p class="tagline">Sistem Pakar Rekomendasi Laptop - Forward Chaining</p>
+            <div class="nav-pill">Aesthetic startup UI</div>
         </div>
     </nav>
 
     <!-- Main Container -->
     <main class="main-container">
+        <section class="hero">
+            <div class="hero-copy">
+                <span class="eyebrow">Laptop Advisor for Modern Workflows</span>
+                <h1>Rekomendasi Laptop yang Lebih Pintar, Cepat, dan Estetik</h1>
+                <p>Buat keputusan beli laptop jadi lebih percaya diri dengan rekomendasi terbaik berdasarkan kebutuhan dan budget Anda.</p>
+            </div>
+            <div class="hero-cards">
+                <article class="status-card">
+                    <span class="status-chip">Verified</span>
+                    <h3>100+ Database Laptop</h3>
+                    <p>Data yang terstruktur dan mudah dianalisis.</p>
+                </article>
+                <article class="status-card">
+                    <span class="status-chip">Fast</span>
+                    <h3>Rekomendasi Instan</h3>
+                    <p>Hasil segera muncul berdasarkan rule sistem pakar.</p>
+                </article>
+            </div>
+        </section>
+
         <div class="container">
             <!-- Left Panel: Input Form -->
             <section class="left-panel">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>🎯 Kriteria Pencarian</h2>
+                <div class="card card-glass">
+                    <div class="card-header card-header-compact">
+                        <div>
+                            <p class="section-label">Start Here</p>
+                            <h2>Atur Kriteria Anda</h2>
+                        </div>
+                        <span class="badge badge-soft">Live</span>
                     </div>
                     <form id="formCari" class="form">
-                        <!-- Kebutuhan -->
                         <div class="form-group">
                             <label for="kebutuhan" class="label">Kategori Kebutuhan</label>
                             <select id="kebutuhan" name="kebutuhan" class="select" required>
                                 <option value="">-- Pilih Kebutuhan --</option>
                             </select>
-                            <small class="help-text">Pilih kebutuhan sesuai dengan penggunaan laptop</small>
                         </div>
 
-                        <!-- Budget Select -->
                         <div class="form-group">
                             <label for="budgetSelect" class="label">Kategori Budget</label>
                             <select id="budgetSelect" name="budget_select" class="select">
                                 <option value="">-- Pilih Budget --</option>
                             </select>
-                            <small class="help-text">atau input budget manual di bawah</small>
                         </div>
 
-                        <!-- Budget Manual -->
                         <div class="form-group">
-                            <label for="budgetManual" class="label">Input Budget Manual (Rp)</label>
+                            <label for="budgetManual" class="label">Budget Manual (Rp)</label>
                             <input type="text" id="budgetManual" name="budget_manual" 
-                                   class="input" placeholder="contoh: 12000000">
-                            <small class="help-text">Kosongkan jika memilih budget kategori</small>
+                                   class="input" placeholder="12000000">
                         </div>
 
-                        <!-- Buttons -->
                         <div class="button-group">
-                            <button type="submit" class="btn btn-primary">
-                                <span class="icon">🔍</span> CARI
-                            </button>
-                            <button type="reset" class="btn btn-secondary">
-                                <span class="icon">🔄</span> RESET
-                            </button>
+                            <button type="submit" class="btn btn-primary">Cari Rekomendasi</button>
+                            <button type="reset" class="btn btn-secondary">Reset</button>
                         </div>
                     </form>
 
-                    <!-- Rule Info -->
                     <div id="ruleInfo" class="rule-info hidden">
-                        <h3 class="rule-title">📋 Informasi Rule</h3>
+                        <h3 class="rule-title">Cara Kerja Sistem</h3>
                         <div class="rule-content" id="ruleContent"></div>
                     </div>
                 </div>
@@ -75,31 +90,30 @@
 
             <!-- Right Panel: Results -->
             <section class="right-panel">
-                <div class="card card-full">
-                    <div class="card-header">
-                        <h2>📊 Hasil Rekomendasi</h2>
-                        <span id="resultCount" class="badge hidden">0 hasil</span>
+                <div class="card card-full card-glow">
+                    <div class="card-header card-header-compact">
+                        <div>
+                            <p class="section-label">Hasil Rekomendasi</p>
+                            <h2>Temukan Laptop Tepat</h2>
+                        </div>
+                        <span id="resultCount" class="badge badge-success hidden">0 hasil</span>
                     </div>
 
-                    <!-- Loading State -->
                     <div id="loadingState" class="state-container hidden">
                         <div class="spinner"></div>
                         <p>Sedang mencari laptop...</p>
                     </div>
 
-                    <!-- Empty State -->
                     <div id="emptyState" class="state-container hidden">
-                        <div class="empty-icon">🎯</div>
+                        <div class="empty-icon">✨</div>
                         <p>Pilih kriteria dan klik CARI untuk memulai</p>
                     </div>
 
-                    <!-- Error State -->
                     <div id="errorState" class="state-container hidden">
                         <div class="empty-icon">⚠️</div>
                         <p id="errorMessage"></p>
                     </div>
 
-                    <!-- Results Table -->
                     <div id="resultsContainer" class="results-container hidden">
                         <div class="table-wrapper">
                             <table class="results-table">
@@ -124,11 +138,10 @@
                     </div>
                 </div>
 
-                <!-- Detail Modal -->
                 <div id="detailModal" class="modal hidden">
                     <div class="modal-content modal-lg">
                         <div class="modal-header">
-                            <h2>📝 Detail Laptop</h2>
+                            <h2>Detail Laptop</h2>
                             <button class="modal-close" onclick="closeModal()">&times;</button>
                         </div>
                         <div class="modal-body" id="detailContent"></div>
