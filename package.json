@@ -1,0 +1,6 @@
+{
+  "name": "Sistem Pakar Rekomendasi Laptop",
+  "description": "Sistem Pakar menggunakan Forward Chaining untuk rekomendasi laptop",
+  "private": false,
+  "keywords": ["sistem-pakar", "forward-chaining", "laptop", "rekomendasi"]
+}

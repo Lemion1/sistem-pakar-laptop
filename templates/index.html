@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Pakar Rekomendasi Laptop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container-nav">
+            <div class="logo">
+                <span class="icon">💻</span>
+                <span class="text">LaptopFinder</span>
+            </div>
+            <p class="tagline">Sistem Pakar Rekomendasi Laptop - Forward Chaining</p>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <div class="container">
+            <!-- Left Panel: Input Form -->
+            <section class="left-panel">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>🎯 Kriteria Pencarian</h2>
+                    </div>
+                    <form id="formCari" class="form">
+                        <!-- Kebutuhan -->
+                        <div class="form-group">
+                            <label for="kebutuhan" class="label">Kategori Kebutuhan</label>
+                            <select id="kebutuhan" name="kebutuhan" class="select" required>
+                                <option value="">-- Pilih Kebutuhan --</option>
+                            </select>
+                            <small class="help-text">Pilih kebutuhan sesuai dengan penggunaan laptop</small>
+                        </div>
+
+                        <!-- Budget Select -->
+                        <div class="form-group">
+                            <label for="budgetSelect" class="label">Kategori Budget</label>
+                            <select id="budgetSelect" name="budget_select" class="select">
+                                <option value="">-- Pilih Budget --</option>
+                            </select>
+                            <small class="help-text">atau input budget manual di bawah</small>
+                        </div>
+
+                        <!-- Budget Manual -->
+                        <div class="form-group">
+                            <label for="budgetManual" class="label">Input Budget Manual (Rp)</label>
+                            <input type="text" id="budgetManual" name="budget_manual" 
+                                   class="input" placeholder="contoh: 12000000">
+                            <small class="help-text">Kosongkan jika memilih budget kategori</small>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="button-group">
+                            <button type="submit" class="btn btn-primary">
+                                <span class="icon">🔍</span> CARI
+                            </button>
+                            <button type="reset" class="btn btn-secondary">
+                                <span class="icon">🔄</span> RESET
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Rule Info -->
+                    <div id="ruleInfo" class="rule-info hidden">
+                        <h3 class="rule-title">📋 Informasi Rule</h3>
+                        <div class="rule-content" id="ruleContent"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Panel: Results -->
+            <section class="right-panel">
+                <div class="card card-full">
+                    <div class="card-header">
+                        <h2>📊 Hasil Rekomendasi</h2>
+                        <span id="resultCount" class="badge hidden">0 hasil</span>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="loadingState" class="state-container hidden">
+                        <div class="spinner"></div>
+                        <p>Sedang mencari laptop...</p>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="emptyState" class="state-container hidden">
+                        <div class="empty-icon">🎯</div>
+                        <p>Pilih kriteria dan klik CARI untuk memulai</p>
+                    </div>
+
+                    <!-- Error State -->
+                    <div id="errorState" class="state-container hidden">
+                        <div class="empty-icon">⚠️</div>
+                        <p id="errorMessage"></p>
+                    </div>
+
+                    <!-- Results Table -->
+                    <div id="resultsContainer" class="results-container hidden">
+                        <div class="table-wrapper">
+                            <table class="results-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Merk & Model</th>
+                                        <th>CPU</th>
+                                        <th>GPU</th>
+                                        <th>RAM</th>
+                                        <th>Storage</th>
+                                        <th>Harga</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="resultsTable"></tbody>
+                            </table>
+                        </div>
+                        <div class="results-footer">
+                            <p id="resultsInfo"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detail Modal -->
+                <div id="detailModal" class="modal hidden">
+                    <div class="modal-content modal-lg">
+                        <div class="modal-header">
+                            <h2>📝 Detail Laptop</h2>
+                            <button class="modal-close" onclick="closeModal()">&times;</button>
+                        </div>
+                        <div class="modal-body" id="detailContent"></div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" onclick="closeModal()">Tutup</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container-nav">
+            <p>&copy; 2024 Sistem Pakar Rekomendasi Laptop | Forward Chaining Method</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

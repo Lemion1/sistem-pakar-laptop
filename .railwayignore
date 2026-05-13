@@ -1,0 +1,3 @@
+# Sistem Pakar Rekomendasi Laptop
+
+ignore = ["*.pyc", "__pycache__", ".git", ".venv", "*.log"]
