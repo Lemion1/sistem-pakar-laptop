@@ -22,7 +22,7 @@ Thumbs.db
 # Logs
 *.log
 search_log.csv
-# credentials.json  # Uncomment jika ingin commit credentials.json untuk demo
+credentials.json
 
 # Python distribution
 build/

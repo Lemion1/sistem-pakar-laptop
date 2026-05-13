@@ -69,13 +69,19 @@ def init_google_sheets():
         try:
             creds = Credentials.from_service_account_info(
                 json.loads(GOOGLE_SHEETS_CREDENTIALS_JSON),
-                scopes=['https://www.googleapis.com/auth/spreadsheets']
+                scopes=[
+                    'https://www.googleapis.com/auth/spreadsheets',
+                    'https://www.googleapis.com/auth/drive'
+                ]
             )
         except json.JSONDecodeError:
             # If not JSON, treat as file path
             creds = Credentials.from_service_account_file(
                 GOOGLE_SHEETS_CREDENTIALS_JSON,
-                scopes=['https://www.googleapis.com/auth/spreadsheets']
+                scopes=[
+                    'https://www.googleapis.com/auth/spreadsheets',
+                    'https://www.googleapis.com/auth/drive'
+                ]
             )
 
         google_sheets_client = gspread.authorize(creds)

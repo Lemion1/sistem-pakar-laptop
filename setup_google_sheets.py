@@ -26,7 +26,10 @@ SEARCH_LOG_FIELDS = [
 
 DEFAULT_WORKSHEET_NAME = 'SearchLog'
 DEFAULT_SPREADSHEET_TITLE = 'ProjectSisdas Search Log'
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+SCOPES = [
+    'https://www.googleapis.com/auth/spreadsheets',
+    'https://www.googleapis.com/auth/drive'
+]
 
 
 def load_credentials(credentials_path: Path) -> Credentials:
@@ -49,7 +52,6 @@ def load_credentials(credentials_path: Path) -> Credentials:
         filename=str(credentials_path),
         scopes=SCOPES
     )
-
 
 def get_spreadsheet(client: gspread.Client, spreadsheet_id: str, title: str):
     if spreadsheet_id:
