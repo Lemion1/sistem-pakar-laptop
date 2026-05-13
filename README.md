@@ -49,12 +49,35 @@ python setup_google_sheets.py --credentials credentials.json --spreadsheet-id YO
 
 Skrip akan mencetak `SPREADSHEET_ID` dan perintah `set` untuk environment variables.
 
-Setelah itu, konfigurasikan environment variables:
+#### 3.2 Mengkonversi Credentials ke Environment Variable
+
+Untuk keamanan, gunakan script helper untuk mengkonversi `credentials.json` menjadi string environment variable:
 
 ```bash
-set GOOGLE_SHEETS_CREDENTIALS_JSON=C:\path\to\service-account.json
+python convert_credentials.py credentials.json
+```
+
+Script akan mencetak command `set` yang bisa Anda copy-paste.
+
+#### 3.3 Menggunakan Environment Variables
+
+Copy `.env.example` menjadi `.env` dan isi dengan nilai yang sesuai:
+
+```bash
+cp .env.example .env
+```
+
+Isi file `.env` dengan:
+- `GOOGLE_SHEETS_CREDENTIALS_JSON`: JSON string dari service account credentials
+- `GOOGLE_SHEETS_SPREADSHEET_ID`: ID spreadsheet
+- `GOOGLE_SHEETS_WORKSHEET_NAME`: Nama worksheet
+
+Atau set environment variables secara manual:
+
+```bash
 set GOOGLE_SHEETS_SPREADSHEET_ID=YOUR_SHEET_ID
 set GOOGLE_SHEETS_WORKSHEET_NAME=SearchLog
+set GOOGLE_SHEETS_CREDENTIALS_JSON=<JSON string dari credentials.json>
 ```
 
 Kemudian jalankan ulang server.

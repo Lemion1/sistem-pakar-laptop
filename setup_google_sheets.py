@@ -11,6 +11,7 @@ If the spreadsheet already exists, pass --spreadsheet-id to use it.
 
 import argparse
 import json
+import os
 from pathlib import Path
 
 import gspread
@@ -29,6 +30,18 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 
 def load_credentials(credentials_path: Path) -> Credentials:
+    # First try to load from environment variable
+    env_credentials = os.getenv('GOOGLE_SHEETS_CREDENTIALS_JSON', '').strip()
+    if env_credentials:
+        try:
+            return Credentials.from_service_account_info(
+                json.loads(env_credentials),
+                scopes=SCOPES
+            )
+        except json.JSONDecodeError:
+            pass  # Fall back to file loading
+
+    # Fall back to file loading
     if not credentials_path.exists():
         raise FileNotFoundError(f"File credentials tidak ditemukan: {credentials_path}")
 
@@ -102,9 +115,13 @@ def main():
     print(f'Spreadsheet ID    : {spreadsheet.id}')
     print(f'Worksheet name    : {worksheet.title}')
     print('\nGunakan nilai berikut di environment variables application:')
-    print(f'  set GOOGLE_SHEETS_CREDENTIALS_JSON={credentials_path.resolve()}')
     print(f'  set GOOGLE_SHEETS_SPREADSHEET_ID={spreadsheet.id}')
     print(f'  set GOOGLE_SHEETS_WORKSHEET_NAME={worksheet.title}')
+    print('\nUntuk credentials, Anda bisa menggunakan:')
+    print('1. File path (saat ini):')
+    print(f'   set GOOGLE_SHEETS_CREDENTIALS_JSON={credentials_path.resolve()}')
+    print('2. JSON string langsung (lebih aman untuk production):')
+    print('   set GOOGLE_SHEETS_CREDENTIALS_JSON=<isi file credentials.json sebagai string>')
     print('\nJika menggunakan Linux / macOS, ganti `set` dengan `export`.')
 
 
