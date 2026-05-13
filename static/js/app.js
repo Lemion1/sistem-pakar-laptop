@@ -34,13 +34,14 @@ async function loadKategori() {
         
         populateKebutuhanSelect(data.kebutuhan);
         populateBudgetSelect(data.budget);
+        populateMerkSelect(data.merks);
     } catch (error) {
         console.error('Error loading kategori:', error);
         showErrorState('Gagal memuat kategori');
     }
 }
 
-async function cariRekomendasi(kebutuhan, budgetSelect, budgetManual) {
+async function cariRekomendasi(kebutuhan, budgetSelect, budgetManual, merk) {
     showLoadingState();
 
     try {
@@ -52,7 +53,8 @@ async function cariRekomendasi(kebutuhan, budgetSelect, budgetManual) {
             body: JSON.stringify({
                 kebutuhan: kebutuhan,
                 budget_select: budgetSelect,
-                budget_manual: budgetManual
+                budget_manual: budgetManual,
+                merk: merk
             })
         });
 
@@ -118,13 +120,14 @@ async function handleFormSubmit(e) {
     const kebutuhan = document.getElementById('kebutuhan').value;
     const budgetSelect = document.getElementById('budgetSelect').value;
     const budgetManual = document.getElementById('budgetManual').value;
+    const merk = document.getElementById('merkSelect').value;
 
     if (!kebutuhan) {
         showErrorState('Pilih kategori kebutuhan terlebih dahulu');
         return;
     }
 
-    await cariRekomendasi(kebutuhan, budgetSelect, budgetManual);
+    await cariRekomendasi(kebutuhan, budgetSelect, budgetManual, merk);
 }
 
 // ─────────────────────────────────────────────────────────
@@ -150,6 +153,19 @@ function populateBudgetSelect(budget) {
         option.value = key;
         option.textContent = item.label;
         select.appendChild(option);
+    }
+}
+
+function populateMerkSelect(merks) {
+    const select = document.getElementById('merkSelect');
+    
+    if (merks) {
+        merks.forEach(merk => {
+            const option = document.createElement('option');
+            option.value = merk;
+            option.textContent = merk;
+            select.appendChild(option);
+        });
     }
 }
 

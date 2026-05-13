@@ -42,6 +42,7 @@ def index():
 @app.route('/api/kategori')
 def api_kategori():
     """API: Ambil daftar kategori kebutuhan dan budget."""
+    merks = sorted(list(set(lap['merk'] for lap in LAPTOPS)))
     return jsonify({
         'kebutuhan': KATEGORI_KEBUTUHAN,
         'budget': {
@@ -52,7 +53,8 @@ def api_kategori():
                 'label': f"{v[0]} (Rp {v[1]:,} - Rp {v[2]:,})".replace(",", ".")
             }
             for k, v in KATEGORI_BUDGET.items()
-        }
+        },
+        'merks': merks
     })
 
 
@@ -64,6 +66,7 @@ def api_cari():
     kebutuhan = data.get('kebutuhan', '').strip()
     budget_select = data.get('budget_select', '').strip()
     budget_manual = data.get('budget_manual', '').strip()
+    merk_pilihan = data.get('merk', 'Semua').strip()
     
     # Validasi
     if not kebutuhan or kebutuhan == '':
@@ -110,7 +113,7 @@ def api_cari():
     # Jalankan forward chaining
     try:
         hasil, rule, catatan = forward_chaining(
-            LAPTOPS, kebutuhan, nama_budget, budget_min, budget_max
+            LAPTOPS, kebutuhan, nama_budget, budget_min, budget_max, merk_pilihan
         )
         
         # Format hasil

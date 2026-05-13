@@ -210,7 +210,8 @@ def forward_chaining(
     kebutuhan: str,
     nama_budget: str,
     budget_min: int,
-    budget_max: int
+    budget_max: int,
+    merk_pilihan: str = "Semua"
 ) -> tuple[list[dict], dict, str]:
     """
     Mesin inferensi Forward Chaining.
@@ -230,6 +231,7 @@ def forward_chaining(
         "budget_kategori": nama_budget,
         "budget_min": budget_min,
         "budget_max": budget_max,
+        "merk_pilihan": merk_pilihan
     }
 
     # ── LANGKAH 2: Rule Firing ────────────────────────────
@@ -243,6 +245,9 @@ def forward_chaining(
     # ── LANGKAH 3: Filter / Working Memory ───────────────
     hasil = []
     for lap in laptops:
+        # Cek merk
+        if merk_pilihan and merk_pilihan.lower() != "semua" and lap["merk"].lower() != merk_pilihan.lower():
+            continue
         # Cek budget
         if not (budget_min <= lap["harga"] <= budget_max):
             continue
