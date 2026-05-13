@@ -131,9 +131,8 @@ button, select, input {
     margin: 0 auto;
     padding: 36px 24px 16px;
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
+    grid-template-columns: 1fr;
     gap: 26px;
-    align-items: end;
 }
 
 .hero-copy {
