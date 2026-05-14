@@ -33,7 +33,56 @@ Output:
 ✔ Flask server dimulai di http://localhost:5000
 ```
 
-### 3. Buka Browser
+### 3. Mengaktifkan Google Sheets (Opsional)
+
+Jika ingin mencatat pencarian secara online di Google Sheets, jalankan skrip setup berikut:
+
+```bash
+python setup_google_sheets.py --credentials credentials.json
+```
+
+Jika spreadsheet sudah ada, tambahkan `--spreadsheet-id`:
+
+```bash
+python setup_google_sheets.py --credentials credentials.json --spreadsheet-id YOUR_SHEET_ID
+```
+
+Skrip akan mencetak `SPREADSHEET_ID` dan perintah `set` untuk environment variables.
+
+#### 3.2 Mengkonversi Credentials ke Environment Variable
+
+Untuk keamanan, gunakan script helper untuk mengkonversi `credentials.json` menjadi string environment variable:
+
+```bash
+python convert_credentials.py credentials.json
+```
+
+Script akan mencetak command `set` yang bisa Anda copy-paste.
+
+#### 3.3 Menggunakan Environment Variables
+
+Copy `.env.example` menjadi `.env` dan isi dengan nilai yang sesuai:
+
+```bash
+cp .env.example .env
+```
+
+Isi file `.env` dengan:
+- `GOOGLE_SHEETS_CREDENTIALS_JSON`: JSON string dari service account credentials
+- `GOOGLE_SHEETS_SPREADSHEET_ID`: ID spreadsheet
+- `GOOGLE_SHEETS_WORKSHEET_NAME`: Nama worksheet
+
+Atau set environment variables secara manual:
+
+```bash
+set GOOGLE_SHEETS_SPREADSHEET_ID=YOUR_SHEET_ID
+set GOOGLE_SHEETS_WORKSHEET_NAME=SearchLog
+set GOOGLE_SHEETS_CREDENTIALS_JSON=<JSON string dari credentials.json>
+```
+
+Kemudian jalankan ulang server.
+
+### 4. Buka Browser
 
 Buka browser dan kunjungi: **http://localhost:5000**
 

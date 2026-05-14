@@ -16,8 +16,13 @@ venv/
 .DS_Store
 Thumbs.db
 
+# Environment variables
+.env
+
 # Logs
 *.log
+search_log.csv
+credentials.json
 
 # Python distribution
 build/
