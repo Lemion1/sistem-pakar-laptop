@@ -249,6 +249,10 @@ function displayRuleInfo(data) {
             <div class="detail-value">${data.kebutuhan}</div>
         </div>
         <div class="rule-item">
+            <div class="rule-label">Merk Pilihan</div>
+            <div class="detail-value">${data.merk || 'Semua'}</div>
+        </div>
+        <div class="rule-item">
             <div class="rule-label">Kategori Budget</div>
             <div class="detail-value">${budgetLabel}</div>
         </div>

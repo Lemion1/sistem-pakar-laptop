@@ -140,6 +140,7 @@ def api_cari():
             'budget': nama_budget,
             'budget_min': budget_min,
             'budget_max': budget_max,
+            'merk': merk_pilihan,
             'rule': rule,
             'hasil': hasil_format,
             'total': len(hasil),
